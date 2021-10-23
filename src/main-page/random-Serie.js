@@ -1,40 +1,37 @@
 
-import Serie from "../serie";
 import React, { useState , useEffect} from 'react';
-import { useParams } from "react-router-dom";
 
 
-const RandomSerie = () => {
-    const { indexArray } = useParams();
-    const { min } = useParams();
-    const { max } = useParams();
-
-
-    const [serie, setSerie] = useState([]);
-    useEffect(()=>{
-        setSerie( createRandomList(indexArray,min,max));
-    },[indexArray] // eslint-disable-line react-hooks/exhaustive-deps
-    )
-
-
-    function getRandomIntInclusive(min, max) {
-        min = Math.ceil(min);
-        max = Math.floor(max);
-        return Math.floor(Math.random() * (max - min +1)) + min;
-      }
-  
-      function createRandomList(ARRAY_LENGTH,min,max){
-           const randomArray = []
-           for(let i = 0; i<ARRAY_LENGTH; i++) {randomArray.push(getRandomIntInclusive(min, max))}
-         return randomArray;
-      } 
-
+const RandomSerie = ({serie}) => {
+    const [index, setIndex] = useState(0);
+    const [newSerie,setNewSerie] = useState([0])
     const [visible, setVisible] = React.useState(false)
+    useEffect(() => {
+        const interval = setInterval(() => {
+           setNewSerie(serie);
+            console.log ("serie 2 =  "+ (newSerie));
+            if(index < serie.length ){
+                setIndex(index => index + 1);            
+                    //setNewSerie(serie);
+            }else{
+               setIndex(0) ;
+               clearInterval(interval);
+            }
+              }, 3000);
+        return () => {
+            console.log ("index =  "+ index);
+            clearInterval(interval);}
+      }, [serie]);// eslint-disable-line react-hooks/exhaustive-deps
+
+
+    function isNumeric(num){
+        return !isNaN(num);
+      };
 
     function calculResultat(serie){
         return Array.from(serie).reduce( (x , currentValue) => x + currentValue)
     }
-    if(serie){
+    if(serie ){
         return(
             <div className="container">
                 <div  className="col-md-12 text-center">
@@ -44,10 +41,10 @@ const RandomSerie = () => {
                      {visible && 
                         <div className="col-md-10 mt-5 resultat" > {calculResultat(serie)}</div>
                      }
-                 </div>           
-                {!visible &&
+                 </div>      
+                {!visible && 
                 <div className="col-md-10 mt-5 serie">
-                <Serie serie={serie}/>
+               <span> {serie[index]}</span>
                 </div>  
                  }
             </div>

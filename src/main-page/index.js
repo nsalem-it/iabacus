@@ -10,11 +10,11 @@ function App() {
     <div className="container">
       <Header subtitle="iAbacus"/>
       <LevelFilter />
-      <Switch>
-         <Route path="/randomSerie/:indexArray/:min/:max" >
-           <RandomSerie/>
-        </Route>
-      </Switch>
+      {/* <Switch> */}
+         {/* <Route path="/randomSerie/:serie" > */}
+           {/* <RandomSerie/> */}
+        {/* </Route> */}
+      {/* </Switch> */}
     </div>
     </Router>
   );

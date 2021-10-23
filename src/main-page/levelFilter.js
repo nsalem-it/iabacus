@@ -1,13 +1,33 @@
 
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { useHistory } from "react-router-dom";
 import { Form,FormGroup , FormControl, Button } from 'react-bootstrap';
+import RandomSerie from './random-Serie';
 
 const LevelFilter = () => {const [filtre, setFiltre] = useState({
   longueur: "",
   min: "",
   max: ""
 });
+const [serie,setSerie] = useState(createRandomList(0,0,0));
+
+// useEffect(() => {
+    // setSerie(serie);
+    // console.log ("serie 1 =  "+ (serie));
+// }, []);
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min +1)) + min;
+}
+
+function createRandomList(ARRAY_LENGTH,min,max){
+     const randomArray = []
+     for(let i = 0; i<ARRAY_LENGTH; i++) {randomArray.push(getRandomIntInclusive(min, max))}
+   return randomArray;
+} 
+
 const history = useHistory();
 
 const onChange = (e) => {
@@ -20,7 +40,9 @@ const onSubmit = (e) => {
   const indexArray =filtre.longueur;
   const min =filtre.min;
   const max =filtre.max;
-  history.push(`/randomSerie/${indexArray}/${min}/${max}`);
+  setSerie(createRandomList(indexArray,min,max));
+  console.log ("serie 1 =  "+ serie);
+  //history.push(`/randomSerie/${serie}`);
   //send
 };
 return (
@@ -39,6 +61,7 @@ return (
   <Button  disabled={!filtre.longueur || !filtre.min || !filtre.max} onClick={onSubmit}>Générer </Button>
 </Form>
 </div>
+<RandomSerie serie= {serie}/>
 </div>
 );
 
