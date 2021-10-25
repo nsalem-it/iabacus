@@ -1,6 +1,5 @@
 
-import React, { useState, useEffect} from 'react';
-import { useHistory } from "react-router-dom";
+import React, { useState} from 'react';
 import { Form,FormGroup , FormControl, Button } from 'react-bootstrap';
 import RandomSerie from './random-Serie';
 
@@ -11,10 +10,6 @@ const LevelFilter = () => {const [filtre, setFiltre] = useState({
 });
 const [serie,setSerie] = useState(createRandomList(0,0,0));
 
-// useEffect(() => {
-    // setSerie(serie);
-    // console.log ("serie 1 =  "+ (serie));
-// }, []);
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -24,11 +19,18 @@ function getRandomIntInclusive(min, max) {
 
 function createRandomList(ARRAY_LENGTH,min,max){
      const randomArray = []
-     for(let i = 0; i<ARRAY_LENGTH; i++) {randomArray.push(getRandomIntInclusive(min, max))}
+
+     let first = getRandomIntInclusive(0, max);
+     let seconde =  getRandomIntInclusive(min, max);
+     for(let i = 0; i<ARRAY_LENGTH; i++) {
+      randomArray.push(first);
+      i++;
+       do{seconde =  getRandomIntInclusive(min, max);} while (first+seconde <0);
+       randomArray.push(seconde);
+      first = first+seconde; }
    return randomArray;
 } 
 
-const history = useHistory();
 
 const onChange = (e) => {
   setFiltre({ ...filtre, [e.target.id]: e.target.value });
@@ -42,7 +44,6 @@ const onSubmit = (e) => {
   const max =filtre.max;
   setSerie(createRandomList(indexArray,min,max));
   console.log ("serie 1 =  "+ serie);
-  //history.push(`/randomSerie/${serie}`);
   //send
 };
 return (

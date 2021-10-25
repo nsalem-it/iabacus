@@ -1,18 +1,15 @@
 
-import React, { useState , useEffect} from 'react';
+import React, { useState , useEffect, isValidElement} from 'react';
 
 
 const RandomSerie = ({serie}) => {
     const [index, setIndex] = useState(0);
-    const [newSerie,setNewSerie] = useState([0])
     const [visible, setVisible] = React.useState(false)
     useEffect(() => {
         const interval = setInterval(() => {
-           setNewSerie(serie);
-            console.log ("serie 2 =  "+ (newSerie));
+            console.log ("serie 2 =  "+ (serie));
             if(index < serie.length ){
                 setIndex(index => index + 1);            
-                    //setNewSerie(serie);
             }else{
                setIndex(0) ;
                clearInterval(interval);
@@ -21,7 +18,7 @@ const RandomSerie = ({serie}) => {
         return () => {
             console.log ("index =  "+ index);
             clearInterval(interval);}
-      }, [serie]);// eslint-disable-line react-hooks/exhaustive-deps
+      }, [serie,index]);// eslint-disable-line react-hooks/exhaustive-deps
 
 
     function isNumeric(num){
@@ -29,9 +26,10 @@ const RandomSerie = ({serie}) => {
       };
 
     function calculResultat(serie){
-        return Array.from(serie).reduce( (x , currentValue) => x + currentValue)
+        if(!serie.length>0  ){ return 0;} 
+        else{return Array.from(serie).reduce( (x , currentValue) => x + currentValue);}
     }
-    if(serie ){
+    if(serie){
         return(
             <div className="container">
                 <div  className="col-md-12 text-center">
