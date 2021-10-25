@@ -1,7 +1,6 @@
-import { BrowserRouter as Router, Switch,Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './main-page.css';
 import Header from './header';
-import RandomSerie from './random-Serie';
 import LevelFilter from './levelFilter';
 function App() {
 
@@ -10,11 +9,6 @@ function App() {
     <div className="container">
       <Header subtitle="iAbacus"/>
       <LevelFilter />
-      {/* <Switch> */}
-         {/* <Route path="/randomSerie/:serie" > */}
-           {/* <RandomSerie/> */}
-        {/* </Route> */}
-      {/* </Switch> */}
     </div>
     </Router>
   );

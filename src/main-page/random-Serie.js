@@ -1,5 +1,5 @@
 
-import React, { useState , useEffect, isValidElement} from 'react';
+import React, { useState , useEffect} from 'react';
 
 
 const RandomSerie = ({serie}) => {
@@ -21,9 +21,9 @@ const RandomSerie = ({serie}) => {
       }, [serie,index]);// eslint-disable-line react-hooks/exhaustive-deps
 
 
-    function isNumeric(num){
-        return !isNaN(num);
-      };
+    // function isNumeric(num){
+        // return !isNaN(num);
+    //   };
 
     function calculResultat(serie){
         if(!serie.length>0  ){ return 0;} 
