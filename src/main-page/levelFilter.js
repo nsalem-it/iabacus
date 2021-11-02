@@ -20,14 +20,13 @@ function getRandomIntInclusive(min, max) {
 function createRandomList(ARRAY_LENGTH,min,max){
      const randomArray = []
 
-     let first = getRandomIntInclusive(0, max);
-     let seconde =  getRandomIntInclusive(min, max);
      for(let i = 0; i<ARRAY_LENGTH; i++) {
-      randomArray.push(first);
-      i++;
-       do{seconde =  getRandomIntInclusive(min, max);} while (first+seconde <0);
+      let first = getRandomIntInclusive(0, max);
+      let seconde =  getRandomIntInclusive(min, max);
+      do{seconde =  getRandomIntInclusive(min, max);} while (first+seconde <0);
+       randomArray.push(first);
        randomArray.push(seconde);
-      first = first+seconde; }
+      i++;}
    return randomArray;
 } 
 
